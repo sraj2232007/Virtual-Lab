@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Data Type Simulator</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Consolas', 'Courier New', monospace;
+        background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+        color: #d4d4d4;
+        min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1001;
+    }
+
+    .menu-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+
+    .menu-icon {
+        font-size: 26px;
+        cursor: pointer;
+        color: #333;
+        background: none;
+        border: none;
+        line-height: 1;
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: color 0.2s, background 0.2s;
+    }
+
+    .menu-icon:hover {
+        color: #4a90e2;
+        background: rgba(74,144,226,0.1);
+    }
+
+    .logo {
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: bold;
+        font-size: 18px;
+        color: #306998;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+.logo img {
+  height: 45px;
+}
+    .logo .py-dot {
+        color: #ffd43b;
+        font-size: 22px;
+    }
+
+    .orange-line {
+        height: 4px;
+        background: orange;
+    }
+
+    .section-title {
+        padding: 10px 20px;
+        font-weight: bold;
+        font-size: 18px;
+        color: #4a90e2;
+        font-family: 'Segoe UI', sans-serif;
+        background: #fafafa;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        width: 250px;
+        height: 100%;
+        background: #4a90e2;
+        padding-top: 80px;
+        transition: 0.3s ease;
+        z-index: 1000;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .modal-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .modal-menu li {
+        margin: 0;
+    }
+
+    .modal-menu a {
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        display: block;
+        padding: 14px 20px;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .modal-menu a:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+    .modal-menu a.active {
+        background: rgba(255,255,255,0.3);
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+    .overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* MAIN CONTENT */
+    .page-content {
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #2d2d30;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+        text-align: center;
+        color: #569cd6;
+        margin-bottom: 10px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #808080;
+        font-family: 'Segoe UI', sans-serif;
+        margin-bottom: 25px;
+        font-size: 14px;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 12px;
+        background: #3c3c3c;
+        border: 1px solid #404040;
+        border-radius: 6px;
+        color: #d4d4d4;
+        font-family: inherit;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input[type="text"]:focus {
+        border-color: #569cd6;
+    }
+
+    button {
+        padding: 12px 24px;
+        background: #0e639c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #1177bb;
+    }
+
+    .output {
+        background: #1e1e1e;
+        border: 1px solid #404040;
+        border-radius: 6px;
+        padding: 20px;
+        min-height: 150px;
+    }
+
+    .placeholder-text {
+        color: #6a6a6a;
+        font-style: italic;
+    }
+
+    .type-display {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .code-python {
+        background: #0d1117;
+        border-left: 4px solid #238636;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 1.6;
+        overflow-x: auto;
+    }
+
+    .desc-text {
+        font-family: 'Segoe UI', sans-serif;
+        color: #c9c9c9;
+        line-height: 1.5;
+    }
+
+    .type-int { color: #b5cea8; }
+    .type-float { color: #b5cea8; }
+    .type-str { color: #ce9178; }
+    .type-list { color: #4ec9b0; }
+    .type-tuple { color: #4ec9b0; }
+    .type-dict { color: #569cd6; }
+    .type-set { color: #569cd6; }
+    .type-bool { color: #c586c0; }
+    .type-nonetype { color: #808080; }
+
+    .examples {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .example-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        background: #21262d;
+        border: 1px solid #30363d;
+    }
+
+    .example-btn:hover {
+        background: #30363d;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="menu-bar">
+        <button class="menu-icon" id="menuToggle">☰</button>
+        <div class="logo">
+               <img src="logo.jpg" alt="Virtual Labs Logo" />
+        </div>
+        </div>
+    <div class="orange-line"></div>
+    <h2 align="left" style="color:#4a90e2"><div class="section">Computer Science and Engineering</div></h2>
+</header>
+
+<div class="overlay" id="overlay"></div>
+
+<nav class="sidebar" id="sidebar">
+    <ul class="modal-menu">
+        <li><a class="active" onclick="setExample(&quot;42&quot;)">Integers</a></li>
+        <li><a onclick="setExample(&quot;3.14&quot;)">Floats</a></li>
+        <li><a onclick="setExample(&quot;'hello world'&quot;)">Strings</a></li>
+        <li><a onclick="setExample(&quot;[1, 2, 3]&quot;)">Lists</a></li>
+        <li><a onclick="setExample(&quot;(1, 2, 3)&quot;)">Tuples</a></li>
+        <li><a onclick="setExample(&quot;{'a': 1, 'b': 2}&quot;)">Dictionaries</a></li>
+        <li><a onclick="setExample(&quot;{1, 2, 3}&quot;)">Sets</a></li>
+        <li><a onclick="setExample(&quot;True&quot;)">Booleans</a></li>
+        <li><a onclick="setExample(&quot;None&quot;)">NoneType</a></li>
+    </ul>
+</nav>
+
+<div class="page-content">
+    <div class="container">
+        <h1>Python Data Type Simulator</h1>
+        <p class="subtitle">Type a Python literal below and see what <code>type()</code> would return</p>
+
+        <div class="input-group">
+            <input type="text" id="inputValue" placeholder="e.g. 5, 5.5, 'hello', [1,2,3], True, None" autocomplete="off">
+            <button onclick="simulate()">Check Data Type</button>
+        </div>
+
+        <div class="output" id="output">
+            <span class="placeholder-text">Enter a value above and click "Check Data Type" (or press Enter) to see the simulated Python output.</span>
+        </div>
+
+        <div class="examples">
+            <button class="example-btn" onclick="setExample('42')">int: 42</button>
+            <button class="example-btn" onclick="setExample('3.14')">float: 3.14</button>
+            <button class="example-btn" onclick="setExample(&quot;'hello'&quot;)">str: 'hello'</button>
+            <button class="example-btn" onclick="setExample('[1, 2, 3]')">list: [1, 2, 3]</button>
+            <button class="example-btn" onclick="setExample('(1, 2, 3)')">tuple: (1, 2, 3)</button>
+            <button class="example-btn" onclick="setExample(&quot;{'a': 1}&quot;)">dict: {'a': 1}</button>
+            <button class="example-btn" onclick="setExample('{1, 2, 3}')">set: {1, 2, 3}</button>
+            <button class="example-btn" onclick="setExample('True')">bool: True</button>
+            <button class="example-btn" onclick="setExample('None')">NoneType: None</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+menuToggle.addEventListener("click", function () {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+});
+
+overlay.addEventListener("click", function () {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+});
+
+function simulate() {
+    const raw = document.getElementById("inputValue").value;
+    const input = raw.trim();
+    const output = document.getElementById("output");
+
+    if (!input) {
+        output.innerHTML = '<span style="color: orange;">Please enter a value.</span>';
+        return;
+    }
+
+    const parsed = parsePythonLiteral(input);
+    const { value, type, display } = parsed;
+    const typeClass = `type-${type.toLowerCase()}`;
+
+    output.innerHTML = `
+        <div class="type-display ${typeClass}">
+            Type: <code>&lt;class '${type}'&gt;</code>
+        </div>
+        <div class="code-python">
+            &gt;&gt;&gt; x = ${escapeHtml(display)}<br>
+            &gt;&gt;&gt; type(x)<br>
+            <strong>&lt;class '${type}'&gt;</strong>
+        </div>
+        <p class="desc-text"><strong>${type}</strong>: ${getTypeDescription(type)}</p>
+    `;
+}
+
+/**
+ * Parses a Python-style literal string and infers its type,
+ * without relying on JSON.parse (which can't handle tuples,
+ * sets, single-quoted strings, or Python's True/False/None).
+ */
+function parsePythonLiteral(input) {
+    const trimmed = input.trim();
+
+    // None
+    if (/^None$/.test(trimmed)) {
+        return { value: null, type: "NoneType", display: "None" };
+    }
+
+    // Booleans (Python is case-sensitive: True / False)
+    if (/^True$/.test(trimmed)) {
+        return { value: true, type: "bool", display: "True" };
+    }
+    if (/^False$/.test(trimmed)) {
+        return { value: false, type: "bool", display: "False" };
+    }
+
+    // Integer (optionally negative, no decimal point)
+    if (/^-?\d+$/.test(trimmed)) {
+        return { value: parseInt(trimmed, 10), type: "int", display: trimmed };
+    }
+
+    // Float (decimal point, optional exponent)
+    if (/^-?\d+\.\d+([eE][+-]?\d+)?$/.test(trimmed) || /^-?\d+[eE][+-]?\d+$/.test(trimmed)) {
+        return { value: parseFloat(trimmed), type: "float", display: trimmed };
+    }
+
+    // Quoted string (single or double quotes)
+    if ((trimmed.startsWith("'") && trimmed.endsWith("'") && trimmed.length >= 2) ||
+        (trimmed.startsWith('"') && trimmed.endsWith('"') && trimmed.length >= 2)) {
+        const inner = trimmed.slice(1, -1);
+        return { value: inner, type: "str", display: trimmed };
+    }
+
+    // Tuple: (a, b, c) -- check before list/dict since it uses parens
+    if (trimmed.startsWith("(") && trimmed.endsWith(")")) {
+        return { value: trimmed, type: "tuple", display: trimmed };
+    }
+
+    // Dict: {key: value, ...} -- must contain a colon to distinguish from set
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+        const inner = trimmed.slice(1, -1).trim();
+        if (inner === "") {
+            return { value: trimmed, type: "dict", display: trimmed };
+        }
+        if (looksLikeDict(inner)) {
+            return { value: trimmed, type: "dict", display: trimmed };
+        }
+        return { value: trimmed, type: "set", display: trimmed };
+    }
+
+    // List: [a, b, c]
+    if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+        return { value: trimmed, type: "list", display: trimmed };
+    }
+
+    // Default: treat as an unquoted string literal
+    return { value: trimmed, type: "str", display: `'${trimmed}'` };
+}
+
+/**
+ * Naive check for whether the inner content of a {...} block
+ * looks like dict entries (contains a top-level colon) rather
+ * than a set (comma-separated values only).
+ */
+function looksLikeDict(inner) {
+    let depth = 0;
+    let inSingle = false;
+    let inDouble = false;
+
+    for (let i = 0; i < inner.length; i++) {
+        const ch = inner[i];
+        if (ch === "'" && !inDouble) inSingle = !inSingle;
+        else if (ch === '"' && !inSingle) inDouble = !inDouble;
+        else if (!inSingle && !inDouble) {
+            if (ch === "(" || ch === "[" || ch === "{") depth++;
+            else if (ch === ")" || ch === "]" || ch === "}") depth--;
+            else if (ch === ":" && depth === 0) return true;
+        }
+    }
+    return false;
+}
+
+function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function getTypeDescription(type) {
+    const desc = {
+        int: "Whole numbers with no decimal point, e.g. <code>42</code> or <code>-7</code>.",
+        float: "Numbers with a decimal point or exponent, e.g. <code>3.14</code>.",
+        str: "An immutable sequence of characters (text).",
+        list: "A mutable, ordered sequence, written with square brackets <code>[ ]</code>.",
+        tuple: "An immutable, ordered sequence, written with parentheses <code>( )</code>.",
+        dict: "A mutable mapping of keys to values, written with curly braces and colons <code>{key: value}</code>.",
+        set: "A mutable, unordered collection of unique elements, written with curly braces <code>{ }</code> and no colons.",
+        bool: "A logical value: either <code>True</code> or <code>False</code>.",
+        NoneType: "Represents the absence of a value: Python's <code>None</code>."
+    };
+    return desc[type] || "A custom or unrecognized type.";
+}
+
+function setExample(val) {
+    document.getElementById("inputValue").value = val;
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    simulate();
+}
+
+document.getElementById("inputValue").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") simulate();
+});
+</script>
+
+</body>
+</html>

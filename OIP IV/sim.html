@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<title>Python File Operation Lab</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#1e3c72,#2a5298);
+}
+
+.header{
+    background:#0d6efd;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+}
+
+.container{
+    width:90%;
+    margin:20px auto;
+    display:flex;
+    gap:20px;
+}
+
+.left, .right{
+    flex:1;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input, select, textarea{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+button{
+    padding:8px 15px;
+    background:#198754;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#146c43;
+}
+
+.code{
+    background:#f8f9fa;
+    padding:10px;
+    font-family:monospace;
+    white-space:pre-wrap;
+    margin-top:10px;
+}
+
+.output{
+    background:black;
+    color:#00ff00;
+    padding:10px;
+    font-family:monospace;
+    min-height:100px;
+    margin-top:10px;
+}
+
+.filelist{
+    background:#f1f1f1;
+    padding:10px;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Computer Science & Engineering - Python File Operation Virtual Lab
+</div>
+
+<div class="container">
+
+<div class="left">
+<h3>Python Code Simulation</h3>
+
+<label>Enter File Name:</label>
+<input type="text" id="filename" placeholder="example.txt">
+
+<label>Select Mode:</label>
+<select id="mode">
+<option value="x">Create (x)</option>
+<option value="w">Write (w)</option>
+<option value="r">Read (r)</option>
+<option value="a">Append (a)</option>
+<option value="d">Delete</option>
+</select>
+
+<label>Enter Content (for Write/Append):</label>
+<textarea id="content"></textarea>
+
+<button onclick="runCode()">Run Code</button>
+
+<div class="code" id="codeDisplay"></div>
+
+</div>
+
+<div class="right">
+<h3>Console Output</h3>
+<div class="output" id="output"></div>
+
+<h3>Available Files</h3>
+<div class="filelist" id="fileList">No Files</div>
+</div>
+
+</div>
+
+<script>
+let virtualFiles = {};
+
+function updateFileList(){
+    let fileList = document.getElementById("fileList");
+    let files = Object.keys(virtualFiles);
+    fileList.innerText = files.length ? files.join(", ") : "No Files";
+}
+
+function runCode(){
+    let filename = document.getElementById("filename").value.trim();
+    let mode = document.getElementById("mode").value;
+    let content = document.getElementById("content").value;
+    let codeBox = document.getElementById("codeDisplay");
+    let outputBox = document.getElementById("output");
+
+    if(filename === ""){
+        outputBox.innerText = "⚠ Please enter file name.";
+        return;
+    }
+
+    let code = `file = open("${filename}", "${mode}")\n`;
+
+    if(mode === "x"){
+        if(virtualFiles[filename]){
+            outputBox.innerText = "Error: File already exists.";
+        } else {
+            virtualFiles[filename] = "";
+            outputBox.innerText = "File created successfully.";
+        }
+        code += "file.close()";
+    }
+
+    else if(mode === "w"){
+        virtualFiles[filename] = content;
+        outputBox.innerText = "File written successfully.";
+        code += `file.write("${content}")\nfile.close()`;
+    }
+
+    else if(mode === "r"){
+        if(virtualFiles[filename]){
+            outputBox.innerText = "Output:\n" + virtualFiles[filename];
+        } else {
+            outputBox.innerText = "Error: File not found.";
+        }
+        code += "print(file.read())\nfile.close()";
+    }
+
+    else if(mode === "a"){
+        if(virtualFiles[filename]){
+            virtualFiles[filename] += content;
+            outputBox.innerText = "Data appended successfully.";
+        } else {
+            outputBox.innerText = "Error: File not found.";
+        }
+        code += `file.write("${content}")\nfile.close()`;
+    }
+
+    else if(mode === "d"){
+        if(virtualFiles[filename]){
+            delete virtualFiles[filename];
+            outputBox.innerText = "File deleted successfully.";
+        } else {
+            outputBox.innerText = "Error: File not found.";
+        }
+        code = `import os\nos.remove("${filename}")`;
+    }
+
+    codeBox.innerText = code;
+    updateFileList();
+}
+</script>
+
+</body>
+</html>

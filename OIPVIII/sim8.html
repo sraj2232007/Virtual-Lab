@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="utf-8">
+
+<title>Snake Water Gun Simulator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#111827;
+color:white;
+text-align:center;
+}
+
+.container{
+padding:30px;
+}
+
+.score{
+
+font-size:28px;
+
+margin:20px;
+
+}
+
+.card{
+
+display:inline-block;
+
+width:220px;
+
+padding:20px;
+
+margin:15px;
+
+background:#252550;
+
+border-radius:20px;
+
+}
+
+.choice{
+
+font-size:90px;
+
+}
+
+button{
+
+padding:15px 25px;
+
+margin:10px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+}
+
+#result{
+
+font-size:30px;
+
+color:yellow;
+
+}
+
+#rule{
+
+color:cyan;
+
+}
+
+.new{
+
+background:#16a34a;
+
+color:white;
+
+}
+
+.restart{
+
+background:#dc2626;
+
+color:white;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+
+🐍 Snake Water Gun 🔫
+
+</h1>
+
+<div class="score">
+
+You:
+<span id="userScore">
+0
+</span>
+
+|
+
+Computer:
+<span id="compScore">
+0
+</span>
+
+</div>
+
+<div class="card">
+
+<h2>You</h2>
+
+<div
+class="choice"
+id="user">
+❔
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Computer</h2>
+
+<div
+class="choice"
+id="computer">
+❔
+</div>
+
+</div>
+
+<br>
+
+<button
+onclick="play('snake')">
+
+🐍 Snake
+
+</button>
+
+<button
+onclick="play('water')">
+
+💧 Water
+
+</button>
+
+<button
+onclick="play('gun')">
+
+🔫 Gun
+
+</button>
+
+<br>
+
+<button
+class="new"
+onclick="newGame()">
+
+🎮 New Game
+
+</button>
+
+<button
+class="restart"
+onclick="restartGame()">
+
+🔄 Restart Score
+
+</button>
+
+<h2 id="result">
+
+Choose Move
+
+</h2>
+
+<h3 id="rule">
+
+Game Rules
+
+</h3>
+
+</div>
+
+<script>
+
+let userScore=0;
+
+let compScore=0;
+
+const emoji={
+
+snake:"🐍",
+
+water:"💧",
+
+gun:"🔫"
+
+};
+
+function play(user){
+
+let options=[
+
+"snake",
+
+"water",
+
+"gun"
+
+];
+
+let computer=
+
+options[
+Math.floor(
+Math.random()*3
+)
+];
+
+document
+.getElementById(
+"user"
+)
+.innerHTML=
+emoji[user];
+
+document
+.getElementById(
+"computer"
+)
+.innerHTML=
+emoji[computer];
+
+let result="";
+let rule="";
+
+if(
+user===computer
+){
+
+result=
+"🤝 Draw";
+
+rule=
+"Same Choice";
+
+}
+
+else if(
+
+(user==="snake"
+&&
+computer==="water")
+
+||
+
+(user==="water"
+&&
+computer==="gun")
+
+||
+
+(user==="gun"
+&&
+computer==="snake")
+
+){
+
+result=
+"🏆 You Win";
+
+userScore++;
+
+}
+else{
+
+result=
+"💻 Computer Wins";
+
+compScore++;
+
+}
+
+if(
+user==="snake"
+&&
+computer==="water"
+)
+
+rule=
+"Snake drinks Water";
+
+else if(
+user==="water"
+&&
+computer==="gun"
+)
+
+rule=
+"Water disables Gun";
+
+else if(
+user==="gun"
+&&
+computer==="snake"
+)
+
+rule=
+"Gun kills Snake";
+
+document
+.getElementById(
+"userScore"
+)
+.innerHTML=
+userScore;
+
+document
+.getElementById(
+"compScore"
+)
+.innerHTML=
+compScore;
+
+document
+.getElementById(
+"result"
+)
+.innerHTML=
+result;
+
+document
+.getElementById(
+"rule"
+)
+.innerHTML=
+rule;
+
+}
+
+function newGame(){
+
+document
+.getElementById(
+"user"
+)
+.innerHTML=
+"❔";
+
+document
+.getElementById(
+"computer"
+)
+.innerHTML=
+"❔";
+
+document
+.getElementById(
+"result"
+)
+.innerHTML=
+"Choose Move";
+
+document
+.getElementById(
+"rule"
+)
+.innerHTML=
+"Game Rules";
+
+}
+
+function restartGame(){
+
+userScore=0;
+
+compScore=0;
+
+document
+.getElementById(
+"userScore"
+)
+.innerHTML=0;
+
+document
+.getElementById(
+"compScore"
+)
+.innerHTML=0;
+
+newGame();
+
+}
+
+</script>
+
+</body>
+
+</html>
+

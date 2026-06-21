@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> PYTHON Programming Lab</title>
+  <link rel="stylesheet" href="style.css">
+    <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .bug-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .bug-button::before {
+      content: "🐞";
+      font-size: 22px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .popup-header h2 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 18px;
+      color: #4a90e2;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 20px;
+      border: none;
+      background: none;
+    }
+
+    .popup img {
+      width: 45px;
+      margin: 10px;
+      display: block;
+    }
+
+    .form-section {
+      margin-top: 10px;
+    }
+
+    .form-section label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-section input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    textarea, input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .close-btn-form {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-bar">
+      <div class="menu-icon" id="menuToggle">&#9776;</div>
+      <div class="logo">
+        <img src="logo.jpg" alt="Virtual Labs Logo" />
+      </div>
+    </div>
+    <div class="orange-line"></div>
+    <h2 align="left" style="color:#4a90e2"><div class="section"><a href="#">Computer Science and Engineering</a> > <a href="/VL---OOPS/index.html"> PYTHON Programming Lab</a> > <a href="/VL---OOPS/LOE.html">Experiments</a></div></h2>
+    <div class="grey-line"></div>
+  </header>
+
+  <main class="content">
+   <h1 align="center">Exception Handling in Python - VI</h1>
+  </main>
+  <p><div class="section">
+   Exception Handling in Python allows programs to manage errors and exceptional conditions gracefully. It is an important programming paradigm that helps in creating robust and reliable code by providing mechanisms to handle runtime errors.
+
+Exception Handling improves software development by enabling developers to anticipate and manage potential errors, ensuring that the program can continue to run even when unexpected situations occur. This leads to better user experience and more maintainable code.
+
+In this lab, you will study different Exception Handling concepts in Python, including creating try-except blocks, raising exceptions, handling multiple exceptions, and using finally blocks for cleanup operations.
+
+ </div> </p>
+
+ <div class="section">
+<h1>Exception Handling in Python</h1>
+<p>Below are Exception Handling based programming questions with implementation.</p>
+</div>
+<div class="section">
+
+<h2>Exception Handling</h2>
+
+<p>
+Exception handling deals with runtime errors and provides a way to
+respond to exceptional conditions without crashing the program.
+In Python this is done with try, except, else and finally blocks.
+</p>
+
+<pre>
+# Example: handling division by zero
+try:
+  a = 10
+  b = 0
+  result = a / b
+except ZeroDivisionError as e:
+  print("Error:", e)
+  result = None
+else:
+  print("Result is", result)
+finally:
+  print("Cleanup if needed")
+</pre>
+
+</div>
+<div class="section">
+
+<h2>Exception Handling</h2>
+
+<p>
+Exception Handling is used to handle runtime errors
+and prevent the program from crashing.
+
+Purpose:
+• Avoid Program Termination
+• Handle Errors Gracefully
+• Improve Program Reliability
+</p>
+
+<pre>
+try:
+    a = 10
+    b = 0
+
+    print(a/b)
+
+except:
+    print("Error Occurred")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Try and Except</h2>
+
+<p>
+The try block contains risky code.
+
+The except block executes
+when an error occurs.
+</p>
+
+<pre>
+try:
+    num = int(input("Enter Number: "))
+
+except:
+    print("Invalid Input")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Handling Specific Exception</h2>
+
+<p>
+Specific exceptions allow handling
+particular types of errors.
+</p>
+
+<pre>
+try:
+    a = 10
+    b = 0
+
+    print(a/b)
+
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Multiple Exceptions</h2>
+
+<p>
+One try block can handle
+multiple exceptions.
+</p>
+
+<pre>
+try:
+    num = int(input())
+
+    print(10/num)
+
+except ValueError:
+    print("Invalid Number")
+
+except ZeroDivisionError:
+    print("Division by Zero")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Else Block</h2>
+
+<p>
+Else block executes only
+if no exception occurs.
+</p>
+
+<pre>
+try:
+    a = 10
+    b = 2
+
+    print(a/b)
+
+except:
+    print("Error")
+
+else:
+    print("Executed Successfully")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Finally Block</h2>
+
+<p>
+Finally block always executes
+whether exception occurs or not.
+
+Used for:
+• Closing Files
+• Database Connections
+• Cleanup Operations
+</p>
+
+<pre>
+try:
+    print(10/2)
+
+except:
+    print("Error")
+
+finally:
+    print("Program Finished")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Raise Exception</h2>
+
+<p>
+raise keyword is used
+to generate custom exceptions.
+</p>
+
+<pre>
+age = -5
+
+if age < 0:
+    raise Exception("Age cannot be negative")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>User Defined Exception</h2>
+
+<p>
+Users can create their own
+exception classes.
+</p>
+
+<pre>
+class InvalidAge(Exception):
+    pass
+
+age = -1
+
+if age < 0:
+    raise InvalidAge("Invalid Age")
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Common Built-in Exceptions</h2>
+
+<pre>
+1. ZeroDivisionError
+
+2. ValueError
+
+3. TypeError
+
+4. IndexError
+
+5. KeyError
+
+6. FileNotFoundError
+
+7. NameError
+
+8. AttributeError
+</pre>
+
+</div>
+
+
+<div class="section">
+
+<h2>Advantages of Exception Handling</h2>
+
+<pre>
+• Prevents Program Crash
+
+• Better User Experience
+
+• Easier Debugging
+
+• Clean Code
+
+• Reliable Applications
+</pre>
+
+</div>
+    <!-- Modal Menu -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <img src="logo.jpg" alt="Logo" class="modal-logo"/>
+        <span class="close-btn" id="closeModal">&times;</span>
+      </div>
+      <ul class="modal-menu">
+        <li><a href=AO6.html>Aim</a></li>
+        <li><a href=OIJVI.html class="active">Theory</a></li>
+        <li><a href=quizVI.html>Pretest</a></li>
+        <li><a href=pro.html>Procedure</a></li>
+        <li><a href=sim.html>Simulation</a></li>
+        <li><a href="pott.html">Posttest</a></li>
+        <li><a href=ref.html>References</a></li>
+        <li><a href=feed6.html>Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+   <script src="script.js"></script>
+   <button class="bug-button" onclick="showPopup()"></button>
+
+<div class="popup" id="bugPopup">
+  <div class="popup-header">
+    <img src="VL.jpg" align="left" alt="Bug Icon">
+    <h2>Bug Report</h2>
+    <button class="close-btn" onclick="hidePopup()">×</button>
+  </div>
+  <div class="form-section">
+    <label><p><big><big>Please select the Issues<br></big></big><input type="checkbox">Incorrect Options<br>
+    <input type="checkbox">Incorrect Answer<br>
+    <input type="checkbox">Incorrect Question<br>
+    <input type="checkbox">Page Not Loading<br>
+    <input type="checkbox">Content Not Visible<br>
+    <input type="checkbox">Incorrect Content<br></p></label>
+  </div>
+   <p><big>Please describe your issue</big><br><textarea rows="4" placeholder="Enter description here"></textarea></p>
+  <label><p><big>Please enter your email (Optional)<br></big><input type="email" placeholder="Enter email here for communication (Optional)"></p></label>
+  <div class="buttons">
+    <button class="close-btn-form" onclick="hidePopup()">Close</button>
+    <button class="submit-btn">Submit</button>
+  </div>
+</div>
+
+<script>
+  function showPopup() {
+    document.getElementById('bugPopup').style.display = 'block';
+  }
+
+  function hidePopup() {
+    document.getElementById('bugPopup').style.display = 'none';
+  }
+</script>
+</body>
+</html>

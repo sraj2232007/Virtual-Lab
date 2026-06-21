@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Python Condition Simulator</title>
+
+<style>
+
+body{
+margin:0;
+background:#0b1020;
+color:white;
+font-family:Arial;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px;
+}
+
+.card{
+
+background:#121933;
+
+border-radius:20px;
+
+padding:30px;
+
+box-shadow:0 0 30px rgba(0,0,0,.3);
+
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.inputs{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:15px;
+
+}
+
+input{
+
+padding:14px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:10px;
+
+}
+
+.ops{
+
+margin-top:20px;
+
+display:grid;
+
+grid-template-columns:repeat(6,1fr);
+
+gap:10px;
+
+}
+
+.op-btn{
+
+background:#1b2445;
+
+padding:15px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+text-align:center;
+
+border:1px solid #444;
+
+transition:.3s;
+
+}
+
+.op-btn:hover{
+
+border-color:#7c5cff;
+
+}
+
+.active{
+
+background:#7c5cff;
+
+}
+
+button{
+
+margin-top:20px;
+
+width:100%;
+
+padding:15px;
+
+font-size:18px;
+
+cursor:pointer;
+
+border:none;
+
+border-radius:10px;
+
+background:#22d3ee;
+
+}
+
+.result{
+
+margin-top:25px;
+
+background:#0a0f24;
+
+padding:20px;
+
+border-radius:12px;
+
+}
+
+.true{
+
+color:#22c55e;
+
+font-size:20px;
+
+}
+
+.false{
+
+color:#ef4444;
+
+font-size:20px;
+
+}
+
+.code{
+
+margin-top:20px;
+
+background:#050a18;
+
+padding:20px;
+
+border-radius:12px;
+
+font-family:Consolas;
+
+white-space:pre-wrap;
+
+line-height:1.8;
+
+overflow:auto;
+
+}
+
+.steps{
+
+margin-top:20px;
+
+background:#11172a;
+
+padding:20px;
+
+border-radius:12px;
+
+}
+
+li{
+
+margin-bottom:10px;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Python Condition Simulator</h1>
+
+<div class="inputs">
+
+<input
+type="number"
+id="a"
+value="15"
+placeholder="First Number">
+
+<input
+type="number"
+id="b"
+value="7"
+placeholder="Second Number">
+
+</div>
+
+<div class="ops">
+
+<div class="op-btn active" data-op="==">==</div>
+
+<div class="op-btn" data-op=">">></div>
+
+<div class="op-btn" data-op="<"><</div>
+
+<div class="op-btn" data-op="!=">!=</div>
+
+<div class="op-btn" data-op=">=">>=</div>
+
+<div class="op-btn" data-op="<="><=</div>
+
+</div>
+
+<button id="run">
+
+Evaluate Condition
+
+</button>
+
+<div class="result">
+
+<h3>Expression</h3>
+
+<div id="expr"></div>
+
+<br>
+
+<div id="answer"></div>
+
+</div>
+
+<div class="code">
+
+<h3>Python Code Execution</h3>
+
+<div id="codeBox"></div>
+
+</div>
+
+<div class="steps">
+
+<h3>Simulation Steps</h3>
+
+<ol id="steps"></ol>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const state={
+
+a:15,
+
+b:7,
+
+op:"=="
+
+};
+
+function evaluate(a,b,op){
+
+switch(op){
+
+case ">":
+return a>b;
+
+case "<":
+return a<b;
+
+case "==":
+return a===b;
+
+case "!=":
+return a!==b;
+
+case ">=":
+return a>=b;
+
+case "<=":
+return a<=b;
+
+}
+
+}
+
+function render(){
+
+let a=state.a;
+
+let b=state.b;
+
+let op=state.op;
+
+let result=evaluate(a,b,op);
+
+document
+.getElementById("expr")
+.innerHTML=
+
+`${a} ${op} ${b}`;
+
+document
+.getElementById("answer")
+.innerHTML=
+
+result
+
+?'<div class="true">TRUE</div>'
+
+:'<div class="false">FALSE</div>';
+
+document
+.getElementById("codeBox")
+.textContent=
+
+`# User Input
+
+a = ${a}
+
+b = ${b}
+
+
+# Condition Checking
+
+if a ${op} b:
+
+    print("Condition is True")
+
+else:
+
+    print("Condition is False")
+
+
+# Evaluation
+
+${a} ${op} ${b}
+
+↓
+
+${result}
+
+
+# Console Output
+
+${
+result
+?
+
+"Condition is True"
+
+:
+
+"Condition is False"
+
+}
+`;
+
+document
+.getElementById("steps")
+.innerHTML=
+
+`
+<li>Read a = ${a}</li>
+
+<li>Read b = ${b}</li>
+
+<li>Select operator "${op}"</li>
+
+<li>Evaluate ${a} ${op} ${b}</li>
+
+<li>Result → ${result}</li>
+`;
+
+}
+
+document
+.querySelectorAll(".op-btn")
+.forEach(btn=>{
+
+btn.onclick=()=>{
+
+document
+
+.querySelectorAll(".op-btn")
+
+.forEach(x=>
+
+x.classList.remove("active")
+
+);
+
+btn.classList.add("active");
+
+state.op=
+
+btn.dataset.op;
+
+};
+
+});
+
+document
+.getElementById("a")
+.oninput=(e)=>{
+
+state.a=
+
+Number(
+
+e.target.value
+
+);
+
+};
+
+document
+.getElementById("b")
+.oninput=(e)=>{
+
+state.b=
+
+Number(
+
+e.target.value
+
+);
+
+};
+
+document
+.getElementById("run")
+.onclick=()=>{
+
+render();
+
+};
+
+render();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Function Simulator</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg,#1f4037,#99f2c8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-wrapper {
+            width: 700px;
+        }
+
+        /* 🔹 NEW HEADER DIV */
+        .header {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1f4037;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            background: #1f4037;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #14532d;
+        }
+
+        .console {
+            margin-top: 20px;
+            background: black;
+            color: #00ff00;
+            padding: 10px;
+            border-radius: 6px;
+            min-height: 80px;
+            font-family: monospace;
+        }
+
+        .example {
+            background: #eee;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <!-- 🔥 NEW HEADER -->
+    <div class="header">
+        Computer Science and Engineering
+    </div>
+
+    <div class="container">
+        <h2>Python Function Simulator</h2>
+
+        <label>Function Name</label>
+        <input type="text" id="fname" placeholder="Example: add">
+
+        <label>Parameters (comma separated)</label>
+        <input type="text" id="params" placeholder="Example: a, b">
+
+        <label>Function Body (write expression after return)</label>
+        <textarea id="body" rows="3" placeholder="a + b"></textarea>
+
+        <label>Call Values (comma separated numbers)</label>
+        <input type="text" id="values" placeholder="Example: 5, 10">
+
+        <button onclick="runFunction()">Run Function</button>
+        <button class="example" onclick="loadExample()">Load Example</button>
+
+        <div class="console" id="console"></div>
+    </div>
+
+</div>
+
+<script>
+function runFunction() {
+    const consoleBox = document.getElementById("console");
+    consoleBox.innerHTML = "";
+
+    const name = document.getElementById("fname").value.trim();
+    const params = document.getElementById("params").value.split(",").map(p => p.trim()).filter(p => p);
+    const body = document.getElementById("body").value.trim();
+    const values = document.getElementById("values").value.split(",").map(v => Number(v.trim()));
+
+    if (!name || !body) {
+        consoleBox.innerHTML = "Error: Please fill function name and body.";
+        return;
+    }
+
+    if (params.length !== values.length) {
+        consoleBox.innerHTML = "Error: Parameter count mismatch.";
+        return;
+    }
+
+    try {
+        const func = new Function(...params, "return " + body);
+        const result = func(...values);
+
+        consoleBox.innerHTML += "Function: " + name + "<br>";
+        consoleBox.innerHTML += "Parameters: " + params.join(", ") + "<br>";
+        consoleBox.innerHTML += "Arguments: " + values.join(", ") + "<br><br>";
+        consoleBox.innerHTML += "Returned Value: " + result;
+    } catch (error) {
+        consoleBox.innerHTML = "Execution Error: " + error.message;
+    }
+}
+
+function loadExample() {
+    document.getElementById("fname").value = "add";
+    document.getElementById("params").value = "a, b";
+    document.getElementById("body").value = "a + b";
+    document.getElementById("values").value = "10, 20";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Exception Handling Simulator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#07162c,
+#08101f,
+#041019
+);
+
+color:white;
+
+padding:30px;
+
+}
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+.title{
+
+text-align:center;
+
+font-size:42px;
+
+margin-bottom:25px;
+
+color:#00eeff;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+1.2fr 1fr;
+
+gap:20px;
+
+}
+
+.card{
+
+background:
+rgba(255,255,255,.05);
+
+padding:20px;
+
+border-radius:20px;
+
+backdrop-filter:
+blur(15px);
+
+}
+
+textarea{
+
+width:100%;
+
+height:480px;
+
+background:#000;
+
+color:#00ff88;
+
+border:none;
+
+outline:none;
+
+padding:20px;
+
+border-radius:15px;
+
+font-size:15px;
+
+resize:none;
+
+}
+
+select{
+
+width:100%;
+
+padding:15px;
+
+margin-bottom:15px;
+
+background:black;
+
+color:#00ff88;
+
+border:none;
+
+border-radius:10px;
+
+}
+
+.buttons{
+
+display:flex;
+
+gap:12px;
+
+margin-top:15px;
+
+}
+
+button{
+
+flex:1;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-size:16px;
+
+font-weight:bold;
+
+}
+
+.run{
+
+background:
+linear-gradient(
+90deg,
+#00f5ff,
+#008cff
+);
+
+}
+
+.clear{
+
+background:
+linear-gradient(
+90deg,
+#ff4f6d,
+#ff7b54
+);
+
+}
+
+.output{
+
+height:140px;
+
+overflow:auto;
+
+background:black;
+
+padding:18px;
+
+border-radius:12px;
+
+margin-top:15px;
+
+}
+
+.flow{
+
+margin-top:20px;
+
+}
+
+.step{
+
+padding:14px;
+
+margin:10px 0;
+
+background:#182235;
+
+border-left:
+6px solid
+cyan;
+
+border-radius:10px;
+
+}
+
+.code{
+
+margin-top:15px;
+
+background:black;
+
+padding:18px;
+
+border-radius:10px;
+
+color:#00ff88;
+
+white-space:pre-wrap;
+
+}
+
+.explain{
+
+margin-top:15px;
+
+padding:18px;
+
+background:#121212;
+
+border-radius:10px;
+
+line-height:1.7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">
+
+⚡ Exception Handling Simulator
+
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+
+<h2>Select Example</h2>
+
+<select
+id="codeSelect"
+onchange="loadCode()">
+
+<option>
+Choose Exception
+</option>
+
+<option value="zero">
+ZeroDivisionError
+</option>
+
+<option value="value">
+ValueError
+</option>
+
+<option value="type">
+TypeError
+</option>
+
+<option value="index">
+IndexError
+</option>
+
+<option value="file">
+FileNotFoundError
+</option>
+
+<option value="custom">
+Custom Exception
+</option>
+
+<option value="success">
+No Exception
+</option>
+
+</select>
+
+<textarea
+id="code">
+
+try:
+    print(10/0)
+
+except ZeroDivisionError:
+    print("Cannot Divide")
+
+finally:
+    print("Finished")
+
+</textarea>
+
+
+<div class="buttons">
+
+<button
+class="run"
+onclick="run()">
+
+▶ Execute
+
+</button>
+
+<button
+class="clear"
+onclick="clearAll()">
+
+🧹 Clear
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Output</h2>
+
+<div
+id="output"
+class="output">
+
+Waiting...
+
+</div>
+
+
+<h2>
+
+Execution Flow
+
+</h2>
+
+<div
+id="flow"
+class="flow">
+
+</div>
+
+
+<h2>
+
+Executed Code
+
+</h2>
+
+<div
+id="executed"
+class="code">
+
+Code appears here
+
+</div>
+
+
+<h2>
+
+Explanation
+
+</h2>
+
+<div
+id="explanation"
+class="explain">
+
+Explanation appears here
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function step(text){
+
+flow.innerHTML+=
+`
+<div class="step">
+${text}
+</div>
+`
+
+}
+
+
+function run(){
+
+let code=
+document
+.getElementById(
+"code"
+)
+.value
+
+output.innerHTML=""
+flow.innerHTML=""
+
+executed.innerText=
+code
+
+step(
+"Program Started"
+)
+
+step(
+"Try Block Executed"
+)
+
+
+if(
+code.includes(
+"/0"
+)
+){
+
+output.innerHTML=
+`
+⚠ ZeroDivisionError
+`
+
+step(
+"Exception Found"
+)
+
+step(
+"Except Executed"
+)
+
+explanation.innerHTML=
+`
+Division by zero happened.
+
+Try block stopped.
+
+Except block handled the error.
+
+Finally executed.
+`
+
+}
+
+
+
+else if(
+code.includes(
+'int("abc")'
+)
+){
+
+output.innerHTML=
+`
+⚠ ValueError
+`
+
+step(
+"ValueError Found"
+)
+
+explanation.innerHTML=
+`
+Invalid text cannot become integer.
+`
+
+}
+
+
+
+else if(
+code.includes(
+'+10'
+)
+){
+
+output.innerHTML=
+`
+⚠ TypeError
+`
+
+step(
+"Type Mismatch"
+)
+
+explanation.innerHTML=
+`
+String and Integer cannot combine.
+`
+
+}
+
+
+
+else if(
+code.includes(
+"[5]"
+)
+){
+
+output.innerHTML=
+`
+⚠ IndexError
+`
+
+step(
+"Index Out Of Range"
+)
+
+explanation.innerHTML=
+`
+List index does not exist.
+`
+
+}
+
+
+
+else{
+
+output.innerHTML=
+`
+✔ Program Executed
+`
+
+step(
+"Success"
+)
+
+explanation.innerHTML=
+`
+Program completed successfully.
+`
+
+}
+
+
+step(
+"Finally Executed"
+)
+
+}
+
+
+
+function loadCode(){
+
+let s=
+codeSelect.value
+
+if(
+s==="zero"
+)
+
+code.value=
+`try:
+ print(10/0)
+
+except ZeroDivisionError:
+ print("Handled")
+
+finally:
+ print("Done")`
+
+
+if(
+s==="value"
+)
+
+code.value=
+`try:
+ x=int("abc")
+
+except ValueError:
+ print("Invalid")
+
+finally:
+ print("Done")`
+
+
+if(
+s==="type"
+)
+
+code.value=
+`try:
+ x="10"+10
+
+except TypeError:
+ print("Type Error")
+
+finally:
+ print("Done")`
+
+
+if(
+s==="index"
+)
+
+code.value=
+`try:
+ arr=[1,2]
+
+ print(arr[5])
+
+except IndexError:
+ print("Invalid")
+
+finally:
+ print("Done")`
+
+
+if(
+s==="file"
+)
+
+code.value=
+`try:
+ open("abc.txt")
+
+except FileNotFoundError:
+ print("Missing")
+
+finally:
+ print("Done")`
+
+
+if(
+s==="custom"
+)
+
+code.value=
+`try:
+ raise Exception("Custom")
+
+except:
+ print("Handled")
+
+finally:
+ print("Done")`
+
+
+if(
+s==="success"
+)
+
+code.value=
+`try:
+ print(100)
+
+except:
+ print("Error")
+
+else:
+ print("Success")
+
+finally:
+ print("Done")`
+
+}
+
+
+
+function clearAll(){
+
+code.value=""
+
+output.innerHTML=
+"Waiting..."
+
+flow.innerHTML=""
+
+executed.innerHTML=
+"Code appears here"
+
+explanation.innerHTML=
+"Explanation appears here"
+
+}
+
+</script>
+
+</body>
+
+</html>
+

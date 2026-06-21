@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Python Module Simulator</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #1e1e2f;
+  color: white;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 25%;
+  background: #111;
+  padding: 20px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar button:hover {
+  background: #00aaff;
+}
+
+.main {
+  width: 75%;
+  padding: 20px;
+}
+
+.box {
+  background: #2a2a40;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.code {
+  background: black;
+  padding: 15px;
+  border-radius: 10px;
+  color: #00ff99;
+  font-family: monospace;
+}
+
+.output {
+  background: #111;
+  padding: 15px;
+  border-radius: 10px;
+  color: yellow;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>Python Module</h2>
+
+<button onclick="loadModule('what')">What is Module</button>
+<button onclick="loadModule('import')">Import Module</button>
+<button onclick="loadModule('built')">Built-in Module</button>
+<button onclick="loadModule('user')">User Module</button>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="box" id="title">Select a topic</div>
+
+<div class="box" id="desc">Description will appear here</div>
+
+<div class="box">
+<h3>Python Code</h3>
+<pre class="code" id="code">---</pre>
+</div>
+
+<div class="box">
+<h3>Output</h3>
+<div class="output" id="output">---</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function loadModule(type) {
+
+  if (type === "what") {
+    document.getElementById("title").innerText = "What is a Module?";
+    document.getElementById("desc").innerText =
+      "A module is a file containing Python code (functions, variables, classes).";
+
+    document.getElementById("code").innerText =
+`# example module
+def greet():
+    print("Hello from module")`;
+
+    document.getElementById("output").innerText =
+`Hello from module`;
+
+  }
+
+  else if (type === "import") {
+    document.getElementById("title").innerText = "Import Module";
+
+    document.getElementById("desc").innerText =
+      "We use import keyword to use modules in Python.";
+
+    document.getElementById("code").innerText =
+`import math
+
+print(math.sqrt(16))`;
+
+    document.getElementById("output").innerText =
+`4.0`;
+  }
+
+  else if (type === "built") {
+    document.getElementById("title").innerText = "Built-in Module";
+
+    document.getElementById("desc").innerText =
+      "Python has built-in modules like math, random, os.";
+
+    document.getElementById("code").innerText =
+`import random
+
+print(random.randint(1,10))`;
+
+    document.getElementById("output").innerText =
+`7 (example output)`;
+  }
+
+  else if (type === "user") {
+    document.getElementById("title").innerText = "User-defined Module";
+
+    document.getElementById("desc").innerText =
+      "We can create our own Python module file.";
+
+    document.getElementById("code").innerText =
+`# mymodule.py
+def add(a,b):
+    return a+b
+
+# main file
+import mymodule
+print(mymodule.add(2,3))`;
+
+    document.getElementById("output").innerText =
+`5`;
+  }
+}
+
+</script>
+
+</body>
+</html>

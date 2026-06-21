@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>OOP Interactive Simulator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#07111d,
+#13284d
+);
+
+color:white;
+
+padding:30px;
+
+}
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+.title{
+
+text-align:center;
+
+font-size:42px;
+
+color:#38bdf8;
+
+margin-bottom:30px;
+
+}
+
+.layout{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:20px;
+
+}
+
+.panel{
+
+background:
+
+rgba(
+255,
+255,
+255,
+0.05
+);
+
+padding:20px;
+
+border-radius:20px;
+
+}
+
+select,
+button{
+
+padding:12px;
+
+margin-top:10px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:15px;
+
+}
+
+select{
+
+width:100%;
+
+}
+
+textarea{
+
+width:100%;
+
+height:320px;
+
+margin-top:15px;
+
+background:#06111f;
+
+color:#00ff88;
+
+padding:15px;
+
+border:none;
+
+border-radius:15px;
+
+resize:none;
+
+}
+
+.run{
+
+background:#22c55e;
+
+}
+
+.reset{
+
+background:#ef4444;
+
+color:white;
+
+}
+
+.step{
+
+background:#1e293b;
+
+padding:12px;
+
+margin:8px 0;
+
+border-radius:10px;
+
+animation:show .5s;
+}
+
+@keyframes show{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(15px);
+
+}
+
+}
+
+.box{
+
+background:#08131f;
+
+padding:15px;
+
+border-radius:12px;
+
+line-height:1.8;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">
+
+Python OOP Simulator
+
+</h1>
+
+<div class="layout">
+
+<div class="panel">
+
+<h2>
+
+Select Operation
+
+</h2>
+
+<select
+id="operation"
+
+onchange=
+"loadCode()">
+
+<option>
+
+Choose Concept
+
+</option>
+
+<option value="class">
+
+Class & Object
+
+</option>
+
+<option value="constructor">
+
+Constructor
+
+</option>
+
+<option value="encapsulation">
+
+Encapsulation
+
+</option>
+
+<option value="inheritance">
+
+Inheritance
+
+</option>
+
+<option value="polymorphism">
+
+Polymorphism
+
+</option>
+
+<option value="abstraction">
+
+Abstraction
+
+</option>
+
+</select>
+
+<textarea
+id="code">
+
+Choose operation
+
+</textarea>
+
+<button
+class="run"
+onclick=
+"simulate()">
+
+Run Simulation
+
+</button>
+
+<button
+class="reset"
+onclick=
+"resetApp()">
+
+Reset
+
+</button>
+
+</div>
+
+
+
+<div class="panel">
+
+<h2>
+
+Explanation
+
+</h2>
+
+<div
+class="box"
+
+id="theory">
+
+Select topic
+
+</div>
+
+<h2
+style=
+"margin-top:20px">
+
+Execution
+
+</h2>
+
+<div
+id="steps">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+const examples={
+
+class:{
+
+code:
+
+`class Student:
+
+    pass
+
+obj=Student()`,
+
+theory:
+
+`
+Class creates blueprint.
+
+Object is instance.
+
+`
+
+},
+
+
+
+constructor:{
+
+code:
+
+`class Student:
+
+ def __init__(self,name):
+
+   self.name=name
+
+obj=Student("Alex")`,
+
+theory:
+
+`
+Constructor runs
+automatically.
+
+`
+
+},
+
+
+
+encapsulation:{
+
+code:
+
+`class Account:
+
+ __balance=1000`,
+
+theory:
+
+`
+Hide data
+using private variables.
+
+`
+
+},
+
+
+
+inheritance:{
+
+code:
+
+`class Parent:
+
+ pass
+
+class Child(Parent):
+
+ pass`,
+
+theory:
+
+`
+Reuse existing class.
+
+`
+
+},
+
+
+
+polymorphism:{
+
+code:
+
+`class Dog:
+
+ def sound():
+
+  print("Bark")
+
+class Cat:
+
+ def sound():
+
+  print("Meow")`,
+
+theory:
+
+`
+Same method
+different outputs.
+
+`
+
+},
+
+
+
+abstraction:{
+
+code:
+
+`from abc import ABC
+
+class Vehicle(ABC):
+
+ pass`,
+
+theory:
+
+`
+Hide implementation.
+
+`
+
+}
+
+};
+
+
+
+function loadCode(){
+
+const op=
+
+document
+.getElementById(
+"operation"
+)
+
+.value;
+
+document
+.getElementById(
+"code"
+)
+
+.value=
+
+examples[op]
+
+.code;
+
+document
+.getElementById(
+"theory"
+)
+
+.innerHTML=
+
+examples[op]
+
+.theory;
+
+}
+
+
+
+function simulate(){
+
+const code=
+
+document
+.getElementById(
+"code"
+)
+
+.value;
+
+let lines=
+
+code
+
+.split("\n")
+
+.filter(
+
+x=>
+
+x.trim()
+
+);
+
+document
+.getElementById(
+"steps"
+)
+
+.innerHTML="";
+
+
+
+lines.forEach(
+
+(
+
+line,
+
+i
+
+)=>{
+
+setTimeout(
+
+()=>{
+
+document
+.getElementById(
+"steps"
+)
+
+.innerHTML
+
++=
+
+`
+
+<div
+class=
+
+step>
+
+Step
+
+${i+1}
+
+<br>
+
+${line}
+
+</div>
+
+`;
+
+},
+
+i*600
+
+);
+
+}
+
+);
+
+}
+
+
+
+function resetApp(){
+
+document
+.getElementById(
+"operation"
+)
+
+.selectedIndex=0;
+
+document
+.getElementById(
+"code"
+)
+
+.value="";
+
+document
+.getElementById(
+"steps"
+)
+
+.innerHTML="";
+
+document
+.getElementById(
+"theory"
+)
+
+.innerHTML=
+
+"Select topic";
+
+}
+
+</script>
+
+</body>
+
+</html>
+```

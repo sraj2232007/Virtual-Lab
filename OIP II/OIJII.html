@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> PYTHON Programming Lab</title>
+  <link rel="stylesheet" href="style.css">
+    <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .bug-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .bug-button::before {
+      content: "🐞";
+      font-size: 22px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .popup-header h2 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 18px;
+      color: #4a90e2;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 20px;
+      border: none;
+      background: none;
+    }
+
+    .popup img {
+      width: 45px;
+      margin: 10px;
+      display: block;
+    }
+
+    .form-section {
+      margin-top: 10px;
+    }
+
+    .form-section label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-section input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    textarea, input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .close-btn-form {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-bar">
+      <div class="menu-icon" id="menuToggle">&#9776;</div>
+      <div class="logo">
+        <img src="logo.jpg" alt="Virtual Labs Logo" />
+      </div>
+    </div>
+    <div class="orange-line"></div>
+    <h2 align="left" style="color:#4a90e2"><div class="section"><a href="#">Computer Science and Engineering</a> > <a href="/VL---OOPS/index.html"> PYTHON Programming Lab</a> > <a href="/VL---OOPS/LOE.html">Experiments</a></div></h2>
+    <div class="grey-line"></div>
+  </header>
+
+  <main class="content">
+   <h1 align="center">Conditions in Python - II</h1>
+  </main>
+  <p><div class="section">
+    Python operators are special symbols that perform operations on variables and values. They are used to manipulate data and variables in expressions. In this lab you will be studying about conditional statements and additional types of operators in Python.
+ </div> </p>
+
+ <div class="section">
+    <h1>Conditional Statements in Python</h1></div>
+  <p><div class="section">Python provides several ways to make decisions:</div></p>
+
+  <div class="section">
+    <h2>If Statement</h2>
+    <p>The if statement is used to execute a block of code only if a condition is true.
+     <div class="dot">
+    <ul>
+      <li><b>if condition:</b> Executes code if condition is True.</li>
+    </ul></div>
+    </p>
+    <p><strong>Program:</strong></p>
+    <pre>
+age = 18
+
+if age >= 18:
+    print("You are eligible to vote")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>You are eligible to vote
+</p>
+  </div>
+
+  <div class="section">
+    <h2>If-Else Statement</h2>
+    <p>The if-else statement executes one block if a condition is true, and another block if it's false.
+     <div class="dot">
+    <ul>
+      <li><b>if condition:</b> Executes if condition is True.</li>
+      <li><b>else:</b> Executes if condition is False.</li>
+    </ul></div>
+    </p>
+    <p><strong>Program:</strong></p>
+    <pre>
+age = 15
+
+if age >= 18:
+    print("You are eligible to vote")
+else:
+    print("You are not eligible to vote")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>You are not eligible to vote
+</p>
+  </div>
+
+  <div class="section">
+    <h2>If-Elif-Else Statement</h2>
+    <p>The if-elif-else statement is used to test multiple conditions. The elif stands for "else if".
+     <div class="dot">
+    <ul>
+      <li><b>if condition1:</b> Executes if condition1 is True.</li>
+      <li><b>elif condition2:</b> Executes if condition2 is True.</li>
+      <li><b>else:</b> Executes if all conditions are False.</li>
+    </ul></div>
+    </p>
+    <p><strong>Program:</strong></p>
+    <pre>
+marks = 75
+
+if marks >= 90:
+    print("Grade: A")
+elif marks >= 80:
+    print("Grade: B")
+elif marks >= 70:
+    print("Grade: C")
+else:
+    print("Grade: F")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>Grade: C
+</p>
+  </div>
+
+  <div class="section">
+    <h2>Nested If Statements</h2>
+    <p>You can have if statements inside if statements. This is used for multiple conditions.
+    <p><strong>Program:</strong></p>
+    <pre>
+age = 20
+income = 25000
+
+if age >= 18:
+    if income >= 20000:
+        print("You can apply for a loan")
+    else:
+        print("Your income is insufficient")
+else:
+    print("You are not eligible")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>You can apply for a loan
+</p>
+  </div>
+
+  <div class="section">
+    <h2>Compound Conditions (and, or, not)</h2>
+    <p>You can combine multiple conditions using logical operators: and, or, and not.
+    <p><strong>Program:</strong></p>
+    <pre>
+age = 25
+income = 30000
+credit_score = 750
+
+# Using 'and' - both conditions must be true
+if age >= 18 and income >= 25000:
+    print("Eligible for basic loan")
+
+# Using 'or' - at least one condition must be true
+if age < 18 or income < 25000:
+    print("May need a guarantor")
+
+# Using 'not' - negates the condition
+if not (age < 18):
+    print("You are an adult")
+
+# Complex conditions
+if age >= 18 and income >= 25000 and credit_score >= 700:
+    print("Eligible for premium loan")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>Eligible for basic loan<br>
+You are an adult<br>
+Eligible for premium loan</p>
+  </div>
+
+  <div class="section">
+    <h2>Dictionary-Based Switch Pattern</h2>
+    <p>Python doesn't have a native switch statement. Instead, you can use a dictionary to map values to actions.
+    <p><strong>Program:</strong></p>
+    <pre>
+day = 3
+
+days = {
+    1: "Monday",
+    2: "Tuesday",
+    3: "Wednesday",
+    4: "Thursday",
+    5: "Friday",
+    6: "Saturday",
+    7: "Sunday"
+}
+
+if day in days:
+    print("Day: " + days[day])
+else:
+    print("Invalid day")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>Day: Wednesday</p>
+  </div>
+
+  <div class="section">
+    <h2>Match Statement (Python 3.10+)</h2>
+    <p>The match statement is a powerful way to handle multiple conditions. It's similar to switch in other languages.
+    <p><strong>Program:</strong></p>
+    <pre>
+grade = "B"
+
+match grade:
+    case "A":
+        print("Excellent! Great job!")
+    case "B":
+        print("Good! Well done!")
+    case "C":
+        print("Satisfactory! Keep trying!")
+    case "D":
+        print("Fair! Need improvement!")
+    case "F":
+        print("Failed! Try again!")
+    case _:
+        print("Invalid grade!")
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>Good! Well done!</p>
+  </div>
+    <h2>Bitwise Operators</h2>
+    <p>Bitwise operators perform operations on bits.
+     <div class="dot">
+    <ul>
+      <li><b>Bitwise And (&) :</b> It compares each bit of two numbers, and the result is 1 only if both bits are 1, else 0.</li>
+      <li><b>Bitwise OR (|) :</b> It compares each bit of two numbers, and the result is 1 if at least one bit is 1, else 0.</li>
+      <li><b>Bitwise XOR (^) :</b> Exclusive OR, and the result is 1 if bits are different, 0 if they are the same.</li>
+      <li><b>Bitwise NOT (~) :</b> It flips all bits. In Python, ~a = -(a+1).</li>
+    </ul></div>
+    </p>
+    <p><strong>Program:</strong></p>
+    <pre>
+a = 5    # Binary: 0101
+b = 7    # Binary: 0111
+
+print("a & b = " + str(a & b))  # AND
+print("a | b = " + str(a | b))  # OR
+print("a ^ b = " + str(a ^ b))  # XOR
+print("~a = " + str(~a))        # NOT
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>a & b = 5<br>
+a | b = 7<br>
+a ^ b = 2<br>
+~a = -6
+</p>
+  </div>
+
+  <div class="section">
+    <h2>Bitwise Shift Operators</h2>
+    <p>Shift operators are used to shift the bits of a number left or right. Left shift multiplies by 2^n, right shift divides by 2^n.
+     <div class="dot">
+    <ul>
+      <li><b>Left shift (<<) :</b> This operator shifts all bits to the left. Each left shift multiplies by 2^n.</li>
+      <li><b>Right shift (>>) :</b> This operator shifts all bits to the right. Each right shift divides by 2^n.</li>
+    </ul>
+    </div>
+    </p>
+    <p><strong>Program:</strong></p>
+    <pre>
+a = 4   # Binary: 0100
+
+print("Left Shift (a << 2): " + str(a << 2))    # 4 * 2^2 = 16
+print("Right Shift (a >> 2): " + str(a >> 2))   # 4 / 2^2 = 1
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>Left Shift (a << 2): 16<br>
+Right Shift (a >> 2): 1<br>
+</p>
+</div>
+
+  <div class="section">
+    <h2>Ternary Operator</h2>
+    <p>The ternary operator is a shorthand form of the if-else statement. It evaluates a condition and returns one value if true, another if false.
+    <p><strong>Syntax:</strong></p>
+    <pre><b>result = value_if_true if condition else value_if_false</b></pre>
+     <div class="dot">
+    <ul>
+      <li>If condition is true, then it returns value_if_true.</li>
+      <li>If condition is false, then it returns value_if_false.</li>
+    </ul></div>
+    </p>
+    <p><strong>Program:</strong></p>
+    <pre>
+a = 10
+b = 5
+
+max_num = a if a > b else b
+print("The maximum between two numbers is: " + str(max_num))
+
+# Another example
+age = 25
+status = "Adult" if age >= 18 else "Minor"
+print("Status: " + status)
+    </pre>
+    <p><strong>Output:</strong></p>
+    <p>The maximum between two numbers is: 10<br>
+Status: Adult</p>
+  </div>
+
+  
+    <!-- Modal Menu -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <img src="logo.jpg" alt="Logo" class="modal-logo"/>
+        <span class="close-btn" id="closeModal">&times;</span>
+      </div>
+      <ul class="modal-menu">
+        <li><a href=AO2.html>Aim</a></li>
+        <li><a href=OIJII.html class="active">Theory</a></li>
+        <li><a href=quiz.html>Pretest</a></li>
+        <li><a href=pro.html>Procedure</a></li>
+        <li><a href=sim.html>Simulation</a></li>
+        <li><a href="postt.html">Posttest</a></li>
+        <li><a href=ref.html>References</a></li>
+        <li><a href=feed2.html>Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+   <script src="script.js"></script>
+   <button class="bug-button" onclick="showPopup()"></button>
+
+<div class="popup" id="bugPopup">
+  <div class="popup-header">
+    <img src="VL.jpg" align="left" alt="Bug Icon">
+    <h2>Bug Report</h2>
+    <button class="close-btn" onclick="hidePopup()">×</button>
+  </div>
+  <div class="form-section">
+    <label><p><big><big>Please select the Issues<br></big></big><input type="checkbox">Incorrect Options<br>
+    <input type="checkbox">Incorrect Answer<br>
+    <input type="checkbox">Incorrect Question<br>
+    <input type="checkbox">Page Not Loading<br>
+    <input type="checkbox">Content Not Visible<br>
+    <input type="checkbox">Incorrect Content<br></p></label>
+  </div>
+   <p><big>Please describe your issue</big><br><textarea rows="4" placeholder="Enter description here"></textarea></p>
+  <label><p><big>Please enter your email (Optional)<br></big><input type="email" placeholder="Enter email here for communication (Optional)"></p></label>
+  <div class="buttons">
+    <button class="close-btn-form" onclick="hidePopup()">Close</button>
+    <button class="submit-btn">Submit</button>
+  </div>
+</div>
+
+<script>
+  function showPopup() {
+    document.getElementById('bugPopup').style.display = 'block';
+  }
+
+  function hidePopup() {
+    document.getElementById('bugPopup').style.display = 'none';
+  }
+</script>
+</body>
+</html>

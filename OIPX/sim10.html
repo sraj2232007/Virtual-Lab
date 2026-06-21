@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Python Virtual Environment Simulator</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 25%;
+  background: #111827;
+  padding: 15px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+  background: #1f2937;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #38bdf8;
+  color: black;
+}
+
+/* Main */
+.main {
+  width: 75%;
+  padding: 20px;
+}
+
+.box {
+  background: #1e293b;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+.code {
+  background: black;
+  color: #00ff99;
+  padding: 15px;
+  border-radius: 10px;
+  font-family: monospace;
+  white-space: pre;
+}
+
+.output {
+  background: #0b0f19;
+  padding: 15px;
+  border-radius: 10px;
+  color: yellow;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>🐍 Python VENV Lab</h2>
+
+<button onclick="load('intro')">Introduction</button>
+<button onclick="load('create')">Create Env</button>
+<button onclick="load('activate')">Activate Env</button>
+<button onclick="load('install')">Install Packages</button>
+<button onclick="load('list')">List Packages</button>
+<button onclick="load('deactivate')">Deactivate</button>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="box title" id="title">Select a topic</div>
+
+<div class="box" id="desc">Click a button to start learning</div>
+
+<div class="box">
+<h3>💻 Command / Code</h3>
+<pre class="code" id="code">---</pre>
+</div>
+
+<div class="box">
+<h3>🎯 Output</h3>
+<div class="output" id="output">---</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function load(type) {
+
+if (type === "intro") {
+  document.getElementById("title").innerText = "Virtual Environment";
+  document.getElementById("desc").innerText =
+    "A virtual environment is an isolated Python workspace for each project.";
+
+  document.getElementById("code").innerText =
+`python -m venv env`;
+
+  document.getElementById("output").innerText =
+`Creates isolated environment folder named 'env'`;
+}
+
+else if (type === "create") {
+  document.getElementById("title").innerText = "Creating Environment";
+  document.getElementById("desc").innerText =
+    "We use venv module to create a virtual environment.";
+
+  document.getElementById("code").innerText =
+`python -m venv myenv`;
+
+  document.getElementById("output").innerText =
+`Environment created successfully`;
+}
+
+else if (type === "activate") {
+  document.getElementById("title").innerText = "Activating Environment";
+  document.getElementById("desc").innerText =
+    "Activation allows us to use the virtual environment.";
+
+  document.getElementById("code").innerText =
+`# Windows
+env\\Scripts\\activate
+
+# Mac/Linux
+source env/bin/activate`;
+
+  document.getElementById("output").innerText =
+`Environment activated ✔`;
+}
+
+else if (type === "install") {
+  document.getElementById("title").innerText = "Installing Packages";
+  document.getElementById("desc").innerText =
+    "pip installs packages inside virtual environment only.";
+
+  document.getElementById("code").innerText =
+`pip install numpy
+pip install flask`;
+
+  document.getElementById("output").innerText =
+`Packages installed in isolated environment`;
+}
+
+else if (type === "list") {
+  document.getElementById("title").innerText = "List Packages";
+  document.getElementById("desc").innerText =
+    "Shows all installed packages in environment.";
+
+  document.getElementById("code").innerText =
+`pip list`;
+
+  document.getElementById("output").innerText =
+`Displays installed packages`;
+}
+
+else if (type === "deactivate") {
+  document.getElementById("title").innerText = "Deactivate Environment";
+  document.getElementById("desc").innerText =
+    "Exits the virtual environment and returns to system Python.";
+
+  document.getElementById("code").innerText =
+`deactivate`;
+
+  document.getElementById("output").innerText =
+`Exited virtual environment`;
+}
+
+}
+
+</script>
+
+</body>
+</html>

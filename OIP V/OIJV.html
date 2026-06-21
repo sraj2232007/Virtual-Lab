@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> PYTHON Programming Lab</title>
+  <link rel="stylesheet" href="style.css">
+    <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .bug-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .bug-button::before {
+      content: "🐞";
+      font-size: 22px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .popup-header h2 {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 18px;
+      color: #4a90e2;
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 20px;
+      border: none;
+      background: none;
+    }
+
+    .popup img {
+      width: 45px;
+      margin: 10px;
+      display: block;
+    }
+
+    .form-section {
+      margin-top: 10px;
+    }
+
+    .form-section label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-section input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    textarea, input[type="email"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .close-btn-form {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="menu-bar">
+      <div class="menu-icon" id="menuToggle">&#9776;</div>
+      <div class="logo">
+        <img src="logo.jpg" alt="Virtual Labs Logo" />
+      </div>
+    </div>
+    <div class="orange-line"></div>
+    <h2 align="left" style="color:#4a90e2"><div class="section"><a href="#">Computer Science and Engineering</a> > <a href="/VL---OOPS/index.html"> PYTHON Programming Lab</a> > <a href="/VL---OOPS/LOE.html">Experiments</a></div></h2>
+    <div class="grey-line"></div>
+  </header>
+
+  <main class="content">
+   <h1 align="center">Object Oriented Programming in Python - V</h1>
+  </main>
+  <p><div class="section">
+   Object Oriented Programming (OOP) in Python allows programs to organize data and functionality using classes and objects. It is an important programming paradigm that helps in creating reusable, modular, and maintainable code by combining data and methods into a single unit called an object.
+
+OOP improves software development by enabling concepts such as encapsulation, inheritance, polymorphism, and abstraction. These concepts help reduce code duplication, increase security, simplify maintenance, and make applications easier to expand and manage.
+
+Object Oriented Programming helps in representing real-world entities as objects, making complex systems easier to design and understand. It also supports better organization of programs by dividing functionality into independent classes.
+
+In this lab, you will study different Object Oriented Programming concepts in Python, including creating classes and objects, using constructors, implementing encapsulation for data hiding, applying inheritance for code reusability, understanding polymorphism for flexible behavior, and using abstraction to hide implementation details while exposing only essential functionality.
+
+ </div> </p>
+
+ <div class="section">
+<h1>Object Oriented Programming in Python – Practice Questions</h1>
+<p>Below are OOP based programming questions with implementation.</p>
+</div>
+<div class="section">
+
+<h2>Object Oriented Programming (OOP)</h2>
+
+<p>
+Object Oriented Programming (OOP) is a programming approach that organizes
+programs using Classes and Objects. OOP helps in creating reusable,
+secure, maintainable and scalable applications.
+</p>
+
+<pre>
+Class  → Blueprint
+
+Object → Real instance of class
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>Class and Object</h2>
+
+<p>
+A Class is a blueprint used to create objects.
+An Object is the actual entity created from the class.
+</p>
+
+<pre>
+class Student:
+
+    def show(self):
+        print("Hello Student")
+
+obj = Student()
+
+obj.show()
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>Constructor (__init__ Method)</h2>
+
+<p>
+Constructor automatically executes when an object is created.
+Used to initialize object variables.
+</p>
+
+<pre>
+class Student:
+
+    def __init__(self,name):
+
+        self.name=name
+
+obj=Student("Sachin")
+
+print(obj.name)
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>1. Encapsulation</h2>
+
+<p>
+Encapsulation means binding data and methods together inside one class
+and restricting direct access to data.
+
+Purpose:
+• Data Hiding
+• Security
+• Controlled Access
+
+Public Variables:
+Accessible anywhere
+
+Private Variables:
+Accessible only inside class
+(using double underscore)
+</p>
+
+<pre>
+class Account:
+
+    def __init__(self):
+
+        self.__balance=1000
+
+    def show(self):
+
+        return self.__balance
+
+
+obj=Account()
+
+print(obj.show())
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>2. Inheritance</h2>
+
+<p>
+Inheritance allows one class to acquire properties and methods
+from another class.
+
+Parent Class:
+Original class
+
+Child Class:
+Derived class
+
+Benefits:
+• Reusability
+• Reduced Code
+</p>
+
+<pre>
+class Parent:
+
+    def display(self):
+
+        print("Parent Method")
+
+
+class Child(Parent):
+
+    pass
+
+
+obj=Child()
+
+obj.display()
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>Types of Inheritance</h2>
+
+<pre>
+1. Single Inheritance
+
+2. Multiple Inheritance
+
+3. Multilevel Inheritance
+
+4. Hierarchical Inheritance
+
+5. Hybrid Inheritance
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>3. Polymorphism</h2>
+
+<p>
+Polymorphism means one method behaves differently
+for different objects.
+
+Poly = Many
+
+Morph = Forms
+
+Benefits:
+• Flexibility
+• Easy Extension
+</p>
+
+<pre>
+class Dog:
+
+    def sound(self):
+
+        print("Bark")
+
+
+class Cat:
+
+    def sound(self):
+
+        print("Meow")
+
+
+a=Dog()
+
+b=Cat()
+
+a.sound()
+
+b.sound()
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>Method Overriding</h2>
+
+<p>
+Method overriding happens when child class
+creates its own version of parent method.
+</p>
+
+<pre>
+class Parent:
+
+    def show(self):
+
+        print("Parent")
+
+
+class Child(Parent):
+
+    def show(self):
+
+        print("Child")
+
+
+obj=Child()
+
+obj.show()
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>4. Abstraction</h2>
+
+<p>
+Abstraction means showing only essential information
+and hiding implementation details.
+
+Abstract Class:
+Cannot create object directly.
+
+Abstract Method:
+Method without implementation.
+</p>
+
+<pre>
+from abc import ABC
+from abc import abstractmethod
+
+
+class Vehicle(ABC):
+
+    @abstractmethod
+
+    def start(self):
+
+        pass
+
+
+class Car(Vehicle):
+
+    def start(self):
+
+        print("Car Started")
+
+
+obj=Car()
+
+obj.start()
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>Difference Between Encapsulation and Abstraction</h2>
+
+<pre>
+Encapsulation
+→ Hides Data
+
+Abstraction
+→ Hides Implementation
+</pre>
+
+</div>
+
+
+
+<div class="section">
+
+<h2>Advantages of OOP</h2>
+
+<pre>
+• Reusability
+
+• Security
+
+• Maintainability
+
+• Flexibility
+
+• Code Organization
+
+• Real World Modeling
+</pre>
+
+</div>
+    <!-- Modal Menu -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <img src="logo.jpg" alt="Logo" class="modal-logo"/>
+        <span class="close-btn" id="closeModal">&times;</span>
+      </div>
+      <ul class="modal-menu">
+        <li><a href=AO5.html>Aim</a></li>
+        <li><a href=OIJV.html class="active">Theory</a></li>
+        <li><a href=quizV.html>Pretest</a></li>
+        <li><a href=pro.html>Procedure</a></li>
+        <li><a href=sim.html>Simulation</a></li>
+        <li><a href="pottt.html">Posttest</a></li>
+        <li><a href=ref.html>References</a></li>
+        <li><a href=feed5.html>Feedback</a></li>
+      </ul>
+    </div>
+  </div>
+   <script src="script.js"></script>
+   <button class="bug-button" onclick="showPopup()"></button>
+
+<div class="popup" id="bugPopup">
+  <div class="popup-header">
+    <img src="VL.jpg" align="left" alt="Bug Icon">
+    <h2>Bug Report</h2>
+    <button class="close-btn" onclick="hidePopup()">×</button>
+  </div>
+  <div class="form-section">
+    <label><p><big><big>Please select the Issues<br></big></big><input type="checkbox">Incorrect Options<br>
+    <input type="checkbox">Incorrect Answer<br>
+    <input type="checkbox">Incorrect Question<br>
+    <input type="checkbox">Page Not Loading<br>
+    <input type="checkbox">Content Not Visible<br>
+    <input type="checkbox">Incorrect Content<br></p></label>
+  </div>
+   <p><big>Please describe your issue</big><br><textarea rows="4" placeholder="Enter description here"></textarea></p>
+  <label><p><big>Please enter your email (Optional)<br></big><input type="email" placeholder="Enter email here for communication (Optional)"></p></label>
+  <div class="buttons">
+    <button class="close-btn-form" onclick="hidePopup()">Close</button>
+    <button class="submit-btn">Submit</button>
+  </div>
+</div>
+
+<script>
+  function showPopup() {
+    document.getElementById('bugPopup').style.display = 'block';
+  }
+
+  function hidePopup() {
+    document.getElementById('bugPopup').style.display = 'none';
+  }
+</script>
+</body>
+</html>
